@@ -15,7 +15,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       // Complements the unit suite: only the files it excludes from its own coverage.
-      include: ['src/db/client.ts', 'src/db/migrate.ts'],
+      include: ['src/db/client.ts', 'src/db/migrate.ts', 'src/db/schema.ts'],
       thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
   },

@@ -10,7 +10,13 @@ export default defineConfig({
       provider: 'v8',
       include: ['src/**/*.ts'],
       // Database wiring is exercised by the integration suite, not by unit tests.
-      exclude: ['src/**/*.test.ts', 'src/server.ts', 'src/db/client.ts', 'src/db/migrate.ts'],
+      exclude: [
+        'src/**/*.test.ts',
+        'src/server.ts',
+        'src/db/client.ts',
+        'src/db/migrate.ts',
+        'src/db/schema.ts',
+      ],
       thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
   },
