@@ -4,11 +4,11 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
-    // No logic to test yet; schemas land in issue 6, together with an 80% coverage threshold.
-    passWithNoTests: true,
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
+      exclude: ['src/**/*.test.ts'],
+      thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
   },
 });
