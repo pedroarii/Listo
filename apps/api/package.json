@@ -1,0 +1,22 @@
+{
+  "name": "@listo/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsdown",
+    "start": "node dist/server.mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.6",
+    "@listo/shared": "workspace:*",
+    "hono": "4.13.16"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "tsdown": "0.23.5",
+    "tsx": "4.23.15"
+  }
+}
