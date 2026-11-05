@@ -31,9 +31,9 @@ Ordem sugerida: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11.
 
 ### 3. Banco de dados e ORM
 
-- [ ] Postgres via docker-compose
-- [ ] ORM com migrations (decidir Drizzle ou Prisma)
-- [ ] Comando único para subir o banco e rodar migrations
+- [x] Postgres via docker-compose
+- [x] ORM com migrations (Drizzle)
+- [x] Comando único para subir o banco e rodar migrations (`pnpm db:setup`)
 
 ### 4. Schema base
 
