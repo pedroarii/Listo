@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true
+  },
   "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "vitest"],
   "categories": {
     "correctness": "error",
@@ -13,17 +16,27 @@
   "ignorePatterns": ["**/dist/**", "**/coverage/**"],
   "rules": {
     "eqeqeq": "error",
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-console": [
+      "warn",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
     "typescript/consistent-type-imports": "error",
     "typescript/no-explicit-any": "error",
     "import/no-cycle": "error",
-    "import/no-duplicates": "error"
+    "import/no-duplicates": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/await-thenable": "error"
   },
   "overrides": [
     {
       "files": ["apps/web/**/*.{ts,tsx}"],
       "plugins": ["typescript", "unicorn", "oxc", "import", "react", "jsx-a11y"],
-      "env": { "browser": true },
+      "env": {
+        "browser": true
+      },
       "rules": {
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "warn",
