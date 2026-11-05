@@ -11,6 +11,7 @@ Projeto pessoal: eu (Pedro) sou o usuário principal. Prioridade é resolver bem
 - Trabalhe uma issue por vez (ver `docs/ROADMAP.md`). Uma branch por issue: `feat/<n>-short-name`.
 - Commits pequenos, no padrão Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`).
 - Antes de dizer que algo está pronto: rode lint, typecheck e testes, e me mostre o resultado.
+- **Desenvolvimento orientado a testes:** escreva primeiro os testes que garantem o comportamento, rode e mostre que falham, depois implemente até passarem.
 - Não adicione dependências sem me dizer qual e por quê. Prefira poucas dependências e bem mantidas.
 - Decisões marcadas como "em aberto" abaixo: me apresente as opções com prós e contras e deixe eu escolher.
 - Quando uma decisão for tomada ou um comando passar a existir, atualize este arquivo.
@@ -62,10 +63,12 @@ Preços, IA, foto/scan de despensa, inferência de estoque, integração com mer
 - **Lint: Oxlint** (não ESLint) — o `typescript-eslint` só suporta TS `<6.1` e o repo usa TS 7. Config única em `.oxlintrc.json` na raiz, warnings quebram o lint (`--deny-warnings`). Regras com tipo ligadas (`options.typeAware`, via `oxlint-tsgolint`, construído sobre o TS 7), incluindo `no-floating-promises`.
 - **Formatação: Prettier** (`singleQuote`, `printWidth: 100`), config em `.prettierrc.json`.
 - **Testes: Vitest** em `api` e `shared`, cada um com seu `vitest.config.ts` e meta de **80% de cobertura** (lines, functions, branches, statements). Rotas testadas via `app.request()`. O `vitest.config.ts` da raiz junta os pacotes como _projects_ para um único watcher.
+- **ORM: Drizzle** (`drizzle-orm` 0.45 + `drizzle-kit`, driver `pg`). Schema em TS (`apps/api/src/db/schema.ts`), sem geração de código; migrations SQL versionadas em `apps/api/drizzle/`. A 1.0 está em RC e muda a API de relations: avaliar a migração quando sair estável.
+- **Banco em dev:** Postgres 18 no `docker-compose.yml` (porta 5433). Credenciais e URLs no `.env` (copiar de `.env.example`). Os testes de integração usam o banco `listo_test`, criado pelo script em `docker/postgres/init/` na primeira subida do volume.
+- **Testes de integração** (`*.integration.test.ts`) ficam fora do `pnpm test` e rodam com `pnpm test:integration`, que exige o Postgres no ar.
 
 ### Decisões em aberto
 
-- ORM: Drizzle ou Prisma (decidir na issue 3).
 - Serviço de deploy (decidir na issue 11).
 
 ## Comandos
@@ -80,11 +83,16 @@ Todos na raiz:
 - `pnpm format` / `pnpm format:check` — Prettier (escreve / só verifica)
 - `pnpm test` — Vitest em cada pacote
 - `pnpm test:watch` — um watcher só, para todos os pacotes (modo interativo do Vitest)
-- `pnpm test:coverage` — testes com cobertura; falha abaixo de 80%
+- `pnpm test:coverage` — testes unitários com cobertura; falha abaixo de 80%
+- `pnpm test:integration` — testes de integração contra o `listo_test` (com cobertura; exige `pnpm db:up`)
 - `pnpm --filter @listo/api start` — roda o build da API
-- db: ainda não existe (issue 3)
+- `pnpm db:setup` — sobe o Postgres, espera ficar saudável e aplica as migrations (comando único)
+- `pnpm db:up` / `pnpm db:down` — sobe / derruba o container
+- `pnpm db:generate` — gera migration a partir do schema (`-- --custom --name x` para SQL manual)
+- `pnpm db:migrate` — aplica as migrations pendentes
+- `pnpm db:studio` — abre o Drizzle Studio
 
 ## Estado atual
 
 - Milestone atual: **M1 — Fundação** (detalhes e issues em `docs/ROADMAP.md`).
-- Issues #1 e #2 concluídas. Próxima issue: **#3 Banco de dados e ORM**.
+- Issues #1, #2 e #3 concluídas. Próxima issue: **#4 Schema base**.

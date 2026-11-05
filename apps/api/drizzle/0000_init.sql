@@ -1,0 +1,1 @@
+-- Baseline migration: starts the migrations journal. Tables arrive in issue 4.

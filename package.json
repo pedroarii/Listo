@@ -14,7 +14,14 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:coverage": "pnpm -r --if-present test:coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:integration": "pnpm -r --if-present test:integration",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:setup": "pnpm db:up && pnpm db:migrate",
+    "db:generate": "pnpm --filter @listo/api db:generate",
+    "db:migrate": "pnpm --filter @listo/api db:migrate",
+    "db:studio": "pnpm --filter @listo/api db:studio"
   },
   "packageManager": "pnpm@12.16.1+sha512.091d1dee7927575661b25dab3c2ae31cafc1c54d6b71ed6a6600cf0c1cb10434a447eae14015f1b23e2e6bedeed79df94a932e2164d2832280dce3fb32f656d1",
   "devDependencies": {
