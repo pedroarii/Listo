@@ -37,9 +37,9 @@ Ordem sugerida: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11.
 
 ### 4. Schema base
 
-- [ ] `Section`: name, order
-- [ ] `Product`: name, section, baseUnit (`g` | `ml` | `un`), packageSize, packageName, isRecurring
-- [ ] Testes das regras de validação (packageSize > 0, unidade válida)
+- [x] `Section`: name, order
+- [x] `Product`: name, section, baseUnit (`g` | `ml` | `un`), packageSize, packageName, isRecurring
+- [x] Testes das regras de validação (packageSize > 0, unidade válida)
 
 ### 5. Seed com dados reais
 
