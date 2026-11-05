@@ -10,16 +10,24 @@
     "typecheck": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:integration": "vitest run --config vitest.integration.config.ts --coverage",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@hono/node-server": "2.1.6",
     "@listo/shared": "workspace:*",
-    "hono": "4.13.16"
+    "drizzle-orm": "0.45.4",
+    "hono": "4.13.16",
+    "pg": "8.23.1"
   },
   "devDependencies": {
     "@types/node": "26.6.6",
+    "@types/pg": "8.23.1",
     "@vitest/coverage-v8": "5.1.0",
+    "drizzle-kit": "0.31.11",
     "tsdown": "0.23.5",
     "tsx": "4.23.15",
     "vitest": "5.1.0"
