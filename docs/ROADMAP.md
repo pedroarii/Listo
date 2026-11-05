@@ -25,9 +25,9 @@ Ordem sugerida: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11.
 
 ### 2. Tooling e qualidade
 
-- [ ] ESLint + Prettier para todo o monorepo
-- [ ] Vitest configurado em `api` e `shared`
-- [ ] `.editorconfig` e `.env.example`
+- [x] Oxlint + Prettier para todo o monorepo (ESLint trocado por Oxlint: typescript-eslint não suporta TS 7)
+- [x] Vitest configurado em `api` e `shared`
+- [x] `.editorconfig` e `.env.example`
 
 ### 3. Banco de dados e ORM
 

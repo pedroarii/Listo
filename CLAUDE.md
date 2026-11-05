@@ -59,6 +59,9 @@ Preços, IA, foto/scan de despensa, inferência de estoque, integração com mer
 - **`@listo/shared` exporta o TS fonte** (sem build). Vite e `tsx` consomem direto; o build da API usa **tsdown** e embute o shared no bundle (`deps.alwaysBundle`).
 - **Portas em dev:** API `3001` (a 3000 é usada por outro projeto), web `5173` com proxy `/api` → API. Postgres na **5433** (a 5432 é usada por outro projeto), com `name: listo` no docker-compose (issue 3).
 - Build scripts de dependências ficam bloqueados por padrão; liberações explícitas em `allowBuilds` no `pnpm-workspace.yaml`.
+- **Lint: Oxlint** (não ESLint) — o `typescript-eslint` só suporta TS `<6.1` e o repo usa TS 7. Config única em `.oxlintrc.json` na raiz, warnings quebram o lint (`--deny-warnings`). Regras com tipo ligadas (`options.typeAware`, via `oxlint-tsgolint`, construído sobre o TS 7), incluindo `no-floating-promises`.
+- **Formatação: Prettier** (`singleQuote`, `printWidth: 100`), config em `.prettierrc.json`.
+- **Testes: Vitest** em `api` e `shared`, cada um com seu `vitest.config.ts` e meta de **80% de cobertura** (lines, functions, branches, statements). Rotas testadas via `app.request()`. O `vitest.config.ts` da raiz junta os pacotes como _projects_ para um único watcher.
 
 ### Decisões em aberto
 
@@ -72,13 +75,16 @@ Todos na raiz:
 - `pnpm install` — instala tudo
 - `pnpm dev` — sobe API (http://localhost:3001) e web (http://localhost:5173) em paralelo
 - `pnpm build` — build de todos os pacotes (API → `apps/api/dist/server.mjs`, web → `apps/web/dist`)
-- `pnpm typecheck` — `tsc` em cada pacote
-- `pnpm lint` — ainda no-op (ESLint entra na issue 2)
-- `pnpm test` — ainda no-op (Vitest entra na issue 2)
+- `pnpm typecheck` — `tsc` na raiz e em cada pacote
+- `pnpm lint` — Oxlint no repo inteiro
+- `pnpm format` / `pnpm format:check` — Prettier (escreve / só verifica)
+- `pnpm test` — Vitest em cada pacote
+- `pnpm test:watch` — um watcher só, para todos os pacotes (modo interativo do Vitest)
+- `pnpm test:coverage` — testes com cobertura; falha abaixo de 80%
 - `pnpm --filter @listo/api start` — roda o build da API
 - db: ainda não existe (issue 3)
 
 ## Estado atual
 
 - Milestone atual: **M1 — Fundação** (detalhes e issues em `docs/ROADMAP.md`).
-- Issue #1 concluída. Próxima issue: **#2 Tooling e qualidade**.
+- Issues #1 e #2 concluídas. Próxima issue: **#3 Banco de dados e ORM**.
